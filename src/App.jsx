@@ -4,13 +4,15 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import DashboardContent from './components/DashboardContent';
 import QRgenerator from './components/QRgenerator';
+import TableList from './components/TableList';
+import FoodList from './components/FoodList';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [headerTitle, setHeaderTitle] = useState("Welcome");
-  const menuItems = ["Home", "QR Code Generator","Table List"];
+  const menuItems = ["Home", "QR Code Generator","Table List","Food List"];
   const cards = ["Card 1", "Card 2", "Card 3"];
-  const links=["/","qrgenerator","tablelist"]
+  const links=["/","qrgenerator","tablelist","foodlist"]
 
   const handleMenuClick = (item) => {
     setHeaderTitle(item);
@@ -36,6 +38,8 @@ function App() {
             <Routes>
               <Route path="/" element={<DashboardContent cards={cards} />} />
               <Route path="/qrgenerator" element={<QRgenerator/>}/>
+              <Route path="/tablelist" element={<TableList/>}/>
+              <Route path="/foodlist" element={<FoodList/>}/>
             </Routes>
           </main>
         </div>

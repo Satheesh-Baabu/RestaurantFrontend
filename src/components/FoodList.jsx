@@ -1,31 +1,53 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function FoodList() {
-  const [foodlist, setfoodlist] = useState([])
+  const [foodlist, setFoodlist] = useState([]);
+
+  // Fetch the food list from the backend
   useEffect(() => {
     axios.get('http://localhost:8000/foodlist')
-      .then(list => {
-        console.log(list)
-        setfoodlist(list)
+      .then(response => {
+        console.log(response.data);
+        setFoodlist(response.data); // Assuming the API sends the list of foods in `response.data`
       })
-      .catch(err=>console.log(err.response.error))
-  }, [])
+      .catch(err => console.error('Error fetching food list:', err));
+  }, []);
+
   return (
-    <div className="card bg-base-100 w-72 shadow-xl">
-      <figure>
-        <img
-          src="https://t4.ftcdn.net/jpg/08/56/29/69/240_F_856296990_Z5xSxdnoM98cIbszHimBJ5Bvbe9qxasy.jpg"
-          alt="Shoes" />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">Chappathi</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Add Cart</button>
-        </div>
-      </div>
+    <div className="container mx-auto mt-8">
+      <table className="table-auto border-collapse border border-gray-300 w-full">
+        <thead>
+          <tr>
+            <th className="border border-gray-300 px-4 py-2">#</th>
+            <th className="border border-gray-300 px-4 py-2">Food Name</th>
+            <th className="border border-gray-300 px-4 py-2">Type</th>
+            <th className="border border-gray-300 px-4 py-2">Price</th>
+            <th className="border border-gray-300 px-4 py-2">Description</th>
+            <th className="border border-gray-300 px-4 py-2">Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foodlist.map((food, index) => (
+            <tr key={food._id} className="text-center">
+              <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
+              <td className="border border-gray-300 px-4 py-2">{food.foodname}</td>
+              <td className="border border-gray-300 px-4 py-2">{food.foodtype}</td>
+              <td className="border border-gray-300 px-4 py-2">${food.price}</td>
+              <td className="border border-gray-300 px-4 py-2">{food.description}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                <img
+                  src={`http://localhost:8000/${food.filename}`} 
+                  alt={food.foodname}
+                  className="w-16 h-16 object-cover mx-auto"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  )
+  );
 }
 
-export default FoodList
+export default FoodList;

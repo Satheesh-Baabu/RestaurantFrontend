@@ -56,12 +56,12 @@ function AddFood() {
       <input type="number" name="price" onChange={handleChange} required />
 
       <label>Description:</label>
-      <textarea name="description" onChange={handleChange} required />
+      <textarea name="description" rows="3" onChange={handleChange} required />
 
       <label>File:</label>
-      <input type="file" name="file" onChange={handleFileChange} required />
+      <input type="file" name="file" onChange={handleFileChange} required className='border border-black' />
 
-      <button type="submit">Add Food</button>
+      <button type="submit" className='border rounded-xl bg-blue-500 p-1 text-white curosor-pointer'>Add Food</button>
     </form>
   );
 }

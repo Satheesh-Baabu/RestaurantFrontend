@@ -37,11 +37,14 @@ const QRgenerator = () => {
 
       const blob = await fetch(finalQRCodeUrl).then((res) => res.blob());
       const formData = new FormData();
+      formData.append("qrname", qrText);
       formData.append("file", blob, `${qrText || "QR_Code"}.png`);
       
-      const result = await axios.post("http://localhost:8000/upload", formData);
+      const result = await axios.post("http://localhost:8000/qrgenerator", formData);
       console.log(result);
       setMessage(`QR Code ${result.data.message}`);
+      
+      setTimeout(()=>{setQrText('');setMessage("");setQrCodeUrl("")},5000);
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to generate and upload QR code.");
@@ -70,7 +73,7 @@ const QRgenerator = () => {
             <a
               href={qrCodeUrl}
               download={`${qrText}.png`}
-              className="cursor-pointer"
+              className="cursor-pointer" 
             >
               <img
                 src={qrCodeUrl}

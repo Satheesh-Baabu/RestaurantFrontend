@@ -4,7 +4,6 @@ import axios from "axios";
 const TableList = () => {
   const [qrlist, setqrlist] = useState([]);
 
-  // Fetch the QR list from the server
   useEffect(() => {
     axios
       .get("http://localhost:8000/qrlist")
@@ -15,7 +14,6 @@ const TableList = () => {
       .catch((err) => console.error("Error fetching QR list:", err));
   }, []);
 
-  // Handle toggle state change
   const handleToggle = async (qr) => {
     const updatedActive = qr.active === 1 ? 0 : 1;
 
@@ -25,7 +23,6 @@ const TableList = () => {
         active: updatedActive,
       });
 
-      // Update the state locally for immediate UI response
       setqrlist((prevList) =>
         prevList.map((item) =>
           item._id === qr._id ? { ...item, active: updatedActive } : item

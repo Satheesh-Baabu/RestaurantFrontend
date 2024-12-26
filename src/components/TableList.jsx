@@ -4,7 +4,6 @@ import axios from "axios";
 const TableList = () => {
   const [qrlist, setqrlist] = useState([]);
 
-  // Fetch the QR list from the server
   useEffect(() => {
     axios
       .get("http://localhost:8000/qrlist")
@@ -15,7 +14,6 @@ const TableList = () => {
       .catch((err) => console.error("Error fetching QR list:", err));
   }, []);
 
-  // Handle toggle state change
   const handleToggle = async (qr) => {
     const updatedActive = qr.active === 1 ? 0 : 1;
 
@@ -25,7 +23,6 @@ const TableList = () => {
         active: updatedActive,
       });
 
-      // Update the state locally for immediate UI response
       setqrlist((prevList) =>
         prevList.map((item) =>
           item._id === qr._id ? { ...item, active: updatedActive } : item
@@ -54,17 +51,17 @@ const TableList = () => {
               <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
               <td className="border border-gray-300 px-4 py-2">
                 {qr.active === 1 ? (
-                  <a  
-                  href={`http://localhost:8000/${qr.filename}`}
-                  download={`${qr.qrname}.png`}
-                  className="cursor-pointer" target="_blank"
-                >
-                  <img
-                    src={`http://localhost:8000/${qr.filename}`}
-                    alt={qr.qrname}
-                    className="w-16 h-20 object-cover mx-auto"
-                  />
-                </a>
+                  <a
+                    href={`http://localhost:8000/${qr.filename}`}
+                    download={`${qr.qrname}.png`}
+                    className="cursor-pointer" target="_blank"
+                  >
+                    <img
+                      src={`http://localhost:8000/${qr.filename}`}
+                      alt={qr.qrname}
+                      className="w-16 h-20 object-cover mx-auto"
+                    />
+                  </a>
                 ) : (
                   <span className="text-gray-500">Inactive</span>
                 )}
@@ -73,11 +70,10 @@ const TableList = () => {
               <td className="border border-gray-300 px-4 py-2">
                 <button
                   onClick={() => handleToggle(qr)}
-                  className={`px-4 py-2 rounded ${
-                    qr.active === 1
+                  className={`px-4 py-2 rounded ${qr.active === 1
                       ? "bg-green-500 text-white"
                       : "bg-gray-300 text-gray-700"
-                  }`}
+                    }`}
                 >
                   {qr.active === 1 ? "ON" : "OFF"}
                 </button>

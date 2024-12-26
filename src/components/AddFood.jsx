@@ -35,8 +35,10 @@ function AddFood() {
         },
       });
       console.log('Food added successfully:', response.data);
+      alert("Food added successfully")
     } catch (error) {
       console.error('Error adding food:', error);
+      alert("food Not added")
     }
   };
 

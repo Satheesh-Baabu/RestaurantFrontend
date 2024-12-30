@@ -4,12 +4,11 @@ import axios from 'axios';
 function FoodList() {
   const [foodlist, setFoodlist] = useState([]);
 
-  // Fetch the food list from the backend
   useEffect(() => {
     axios.get('http://localhost:8000/foodlist')
       .then(response => {
         console.log(response.data);
-        setFoodlist(response.data); // Assuming the API sends the list of foods in `response.data`
+        setFoodlist(response.data); 
       })
       .catch(err => console.error('Error fetching food list:', err));
   }, []);

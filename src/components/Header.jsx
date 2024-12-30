@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import {AuthContext} from '../components/AuthContext'
+
 function Header({ toggleSidebar ,title}) {
+  
     return (
       <header className="bg-white shadow p-4 flex items-center justify-between">
         <div className="text-xl font-bold">{title}</div>
